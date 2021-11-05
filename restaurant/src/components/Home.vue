@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input v-model="hour" placeholder="Filtro" />
+        <input v-model="hour" placeholder="Filter" />
         <button v-on:click="getByFilter">Search</button>
         <div id="areaGrid">
             <table v-if="arrRestaurants.length" class="tblResult">
@@ -16,7 +16,7 @@
                         <td>{{ item.close }}</td>
                     </tr>
                 </tbody>
-            </table>
+              </table>
         </div>
     </div>
 </template>
@@ -36,15 +36,25 @@
             async getByFilter() {
                 this.arrRestaurants = [];
                 
-                const arrResult = await HourService.getByHour(this.hour);
-                
-                arrResult.forEach(element => {
-                    this.arrRestaurants.push({
-                        name: element.name,
-                        open: moment.utc(element.open.totalMilliseconds).format('hh:mm'),
-                        close: moment.utc(element.close.totalMilliseconds).format('HH:mm')
-                    })
-                });
+                try {
+                    const arrResult = await HourService.getByHour(this.hour);
+
+                    if(arrResult.length === 0){
+                        alert("Nenhum registro encontrado");
+                        return;
+                    }
+
+                    arrResult.forEach(element => {
+                        this.arrRestaurants.push({
+                            name: element.name,
+                            open: moment.utc(element.open.totalMilliseconds).format('hh:mm'),
+                            close: moment.utc(element.close.totalMilliseconds).format('HH:mm')
+                        })
+                    });   
+                } catch (error) {
+                    console.log(error);
+                    alert(error);
+                }
             }
         }
     };

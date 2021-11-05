@@ -7,8 +7,12 @@ export default {
 	async getByHour(hour) {
 		const apiPath = env.API_PATH;
 
-		const response = await axios.get(apiPath + "/hours/" + hour);
+		try {
+			const response = await axios.get(apiPath + "/hours/" + hour);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			throw error.response.data;
+		}
 	}
 }
