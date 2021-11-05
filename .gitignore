@@ -3,3 +3,5 @@
 ################################################################################
 
 /Restaurant.API/.vs/Restaurant/v16/TestStore/0/000.testlog
+/Restaurant.API/TestAPI/obj
+/Restaurant.API/TestAPI/bin/Debug/netcoreapp3.1

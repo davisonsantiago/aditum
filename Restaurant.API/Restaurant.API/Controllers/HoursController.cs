@@ -2,6 +2,7 @@
 using Restaurant.API.Models.Filter;
 using Restaurant.API.Repository.Interface;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Restaurant.API.Controllers
@@ -29,13 +30,13 @@ namespace Restaurant.API.Controllers
 
             var result = _repository.Read(new RestaurantFilter { Hour = hour });
 
-            if (result != null)
+            if (result == null || result.Any())
             {
-                return Ok(result);
+                return NotFound(); 
             }
             else
             {
-                return NotFound();
+                return Ok(result);
             }
         }
     }

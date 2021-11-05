@@ -13,7 +13,7 @@ namespace Restaurant.API.Database
             this.Database.EnsureCreated();
         }
 
-        protected ApiContext()
+        public ApiContext()
         {
         }
 
